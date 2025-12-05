@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dur5qes4h2xnh"]
+
+[ext_resource type="Script" uid="uid://caguh4orjl7fd" path="res://scripts/player.gd" id="1_o5qli"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(640, 32)
+
+[sub_resource type="Gradient" id="Gradient_tbgi4"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tefeu"]
+gradient = SubResource("Gradient_tbgi4")
+width = 640
+height = 32
+
+[node name="Main" type="Node"]
+
+[node name="Level" type="Node" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="Level"]
+script = ExtResource("1_o5qli")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Level"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D"]
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D"]
+texture = SubResource("GradientTexture2D_tefeu")
+
+[node name="Camera2D" type="Camera2D" parent="Level"]
+position = Vector2(5, -87)
+zoom = Vector2(1.2, 1.2)
