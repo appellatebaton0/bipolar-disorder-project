@@ -1,32 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://dur5qes4h2xnh"]
+[gd_scene load_steps=8 format=4 uid="uid://dur5qes4h2xnh"]
 
 [ext_resource type="Script" uid="uid://caguh4orjl7fd" path="res://scripts/player.gd" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://b2symtangyl7x" path="res://assets/resources/tilemap.tres" id="2_0wfyh"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
-size = Vector2(640, 32)
+[sub_resource type="Gradient" id="Gradient_o5qli"]
 
-[sub_resource type="Gradient" id="Gradient_tbgi4"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tefeu"]
-gradient = SubResource("Gradient_tbgi4")
-width = 640
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0wfyh"]
+gradient = SubResource("Gradient_o5qli")
+width = 32
 height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
+size = Vector2(32, 32)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sugp2"]
+texture = ExtResource("2_0wfyh")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_jyhfs"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_sugp2")
 
 [node name="Main" type="Node"]
 
 [node name="Level" type="Node" parent="."]
 
 [node name="Player" type="CharacterBody2D" parent="Level"]
+position = Vector2(-19, -94)
 script = ExtResource("1_o5qli")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Level"]
+[node name="Sprite2D" type="Sprite2D" parent="Level/Player"]
+texture = SubResource("GradientTexture2D_0wfyh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D"]
-shape = SubResource("RectangleShape2D_jyhfs")
-
-[node name="Sprite2D" type="Sprite2D" parent="Level/StaticBody2D"]
-texture = SubResource("GradientTexture2D_tefeu")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Player"]
+shape = SubResource("RectangleShape2D_o5qli")
 
 [node name="Camera2D" type="Camera2D" parent="Level"]
 position = Vector2(5, -87)
 zoom = Vector2(1.2, 1.2)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Level"]
+tile_map_data = PackedByteArray("AADz////AAABAAEAAADz/wAAAAAAAAEAAADz/wEAAAAAAAAAAAD0////AAABAAEAAAD0/wAAAAAAAAAAAAD0/wEAAAAAAAAAAAD1////AAABAAAAAAD1/wAAAAABAAAAAAD1/wEAAAABAAAAAAD2////AAAAAAEAAAD2/wAAAAABAAAAAAD2/wEAAAABAAAAAAD3////AAAAAAEAAAD3/wAAAAABAAEAAAD3/wEAAAAAAAEAAAD4////AAAAAAEAAAD4/wAAAAABAAEAAAD4/wEAAAABAAAAAAD5////AAABAAEAAAD5/wAAAAABAAEAAAD5/wEAAAABAAAAAAD6////AAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD7////AAAAAAEAAAD7/wAAAAAAAAEAAAD7/wEAAAABAAEAAAD8////AAABAAAAAAD8/wAAAAABAAEAAAD8/wEAAAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAABAAAAAAD9/wEAAAABAAEAAAD+////AAAAAAEAAAD+/wAAAAABAAEAAAD+/wEAAAAAAAEAAAD/////AAABAAAAAAD//wAAAAABAAAAAAD//wEAAAABAAAAAAAAAP//AAAAAAEAAAAAAAAAAAAAAAEAAAAAAAEAAAABAAEAAAABAP//AAABAAAAAAABAAAAAAAAAAEAAAABAAEAAAABAAAAAAACAP//AAABAAEAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAADAP//AAABAAAAAAADAAAAAAABAAEAAAADAAEAAAABAAAAAAAEAP//AAABAAEAAAAEAAAAAAABAAEAAAAEAAEAAAABAAEAAAAFAP//AAABAAEAAAAFAAAAAAABAAAAAAAFAAEAAAABAAAAAAAGAP//AAABAAEAAAAGAAAAAAABAAAAAAAGAAEAAAABAAEAAAAHAP//AAABAAEAAAAHAAAAAAABAAAAAAAHAAEAAAABAAAAAAAIAP//AAABAAEAAAAIAAAAAAAAAAEAAAAIAAEAAAAAAAAAAAAJAP//AAABAAEAAAAJAAAAAAAAAAEAAAAJAAEAAAAAAAEAAAAFAPz/AAAAAAAAAAAFAP3/AAABAAEAAAAFAP7/AAAAAAEAAAAHAPv/AAABAAEAAAAHAPz/AAAAAAEAAAAHAP3/AAAAAAEAAAAHAP7/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPz/AAABAAEAAAAIAP3/AAABAAEAAAAIAP7/AAABAAAAAAAJAPv/AAAAAAEAAAAJAPz/AAABAAEAAAAJAP3/AAABAAAAAAAJAP7/AAAAAAAAAAAKAPv/AAAAAAEAAAAKAPz/AAABAAAAAAAKAP3/AAABAAEAAAAKAP7/AAABAAAAAAAKAP//AAABAAAAAAAKAAAAAAABAAAAAADw//v/AAAAAAEAAADw//z/AAAAAAAAAADw//3/AAAAAAEAAADw//7/AAAAAAAAAADw////AAAAAAEAAADw/wAAAAAAAAAAAADw/wEAAAAAAAEAAADx//v/AAAAAAEAAADx//z/AAABAAAAAADx//3/AAABAAAAAADx//7/AAAAAAEAAADx////AAAAAAEAAADx/wAAAAABAAAAAADx/wEAAAABAAAAAADy//v/AAABAAAAAADy//z/AAABAAAAAADy//3/AAAAAAAAAADy//7/AAAAAAAAAADy////AAABAAEAAADy/wAAAAABAAEAAADy/wEAAAAAAAEAAADz//v/AAABAAAAAADz//z/AAABAAAAAADz//3/AAABAAEAAADz//7/AAABAAAAAAD0//v/AAAAAAAAAAD0//z/AAAAAAAAAAD0//3/AAABAAAAAAD0//7/AAAAAAEAAAD1//v/AAAAAAEAAAD1//z/AAABAAEAAAD1//3/AAABAAEAAAD1//7/AAAAAAEAAAABAP7/AAAAAAAAAAADAP3/AAABAAEAAAADAP7/AAABAAEAAAAJAPb/AAAAAAAAAAAJAPf/AAAAAAEAAAAJAPj/AAAAAAEAAAAJAPn/AAAAAAAAAAAJAPr/AAAAAAEAAAAKAPb/AAAAAAEAAAAKAPf/AAABAAAAAAAKAPj/AAABAAEAAAAKAPn/AAAAAAEAAAAKAPr/AAAAAAEAAAA=")
+tile_set = SubResource("TileSet_jyhfs")
