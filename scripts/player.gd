@@ -31,76 +31,132 @@ class control_data:
 		coyote_time = set_coyote
 		jump_buffer = set_buffer
 
+var jump_buffer := 0.0
+var coyote_time := 0.0
+
+var direction:float
+
 var mani_data := control_data.new(
 	move_data.new( ## Ground Movement
-		30.0, # Max Speed
-		300.0, # Acceleration
-		300.0 # Friction
+		135.0, # Max Speed
+		135.0, # Acceleration
+		135.0 # Friction
 	),
 	move_data.new( ## Air Movemnt
-		30.0, # Max Speed
-		300.0, # Acceleration
-		300.0 # Friction
+		125.0, # Max Speed
+		125.0, # Acceleration
+		125.0 # Friction
 	),
 	300.0, # Jump Velocity
-	1.0 # Gravity
+	0.8 # Gravity
 )
 var depr_data := control_data.new(
 	move_data.new( ## Ground Movement
-		30.0, # Max Speed
-		300.0, # Acceleration
-		300.0 # Friction
+		60.0, # Max Speed
+		500.0, # Acceleration
+		400.0 # Friction
 	),
 	move_data.new( ## Air Movemnt
-		30.0, # Max Speed
+		50.0, # Max Speed
 		300.0, # Acceleration
 		300.0 # Friction
 	),
-	300.0, # Jump Velocity
+	260.0, # Jump Velocity
 	1.0 # Gravity
 )
 var norm_data := control_data.new(
 	move_data.new( ## Ground Movement
-		30.0, # Max Speed
-		300.0, # Acceleration
-		300.0 # Friction
+		100.0, # Max Speed
+		400.0, # Acceleration
+		500.0 # Friction
 	),
 	move_data.new( ## Air Movemnt
-		30.0, # Max Speed
+		90.0, # Max Speed
 		300.0, # Acceleration
 		300.0 # Friction
 	),
-	300.0, # Jump Velocity
-	1.0 # Gravity
+	275.0, # Jump Velocity
+	0.9 # Gravity
 )
 
-func manic_movement(_delta:float) -> void: pass
+func gravity(amnt:float, delta:float) -> void: if not is_on_floor(): velocity += get_gravity() * delta * amnt
+func jumping(data:control_data, delta:float) -> void:
+	
+	coyote_time = move_toward(coyote_time, 0, delta)
+	jump_buffer = move_toward(jump_buffer, 0, delta)
+	
+	if is_on_floor(): coyote_time = data.coyote_time
+	if Input.is_action_just_pressed("Jump"): jump_buffer = data.jump_buffer
+	
+	if coyote_time and jump_buffer:
+		
+		velocity.y -= data.jump_velocity
+		
+		coyote_time = 0
+		jump_buffer = 0
+
+var wall_coyote := 0.0
+var wall_normal:float
+func wall_jumping(data:control_data, move:move_data): 
+	
+	if is_on_wall_only(): 
+		wall_coyote = 0.1
+		wall_normal = get_wall_normal().x
+	
+	if wall_coyote and jump_buffer: # WALL JUMPING
+		velocity.y -= data.jump_velocity * 1.2
+		velocity.x += move.max_speed * wall_normal * 1.5
+		
+		wall_coyote = 0.0
+		jump_buffer = 0.0
+	
+	pass
+
+func movement(max_speed:float, acceleration:float, friction:float, delta:float):
+	direction = Input.get_axis("Left", "Right")
+	
+	if direction:
+		velocity.x = move_toward(velocity.x, max_speed * direction, acceleration * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+
+func manic_movement(delta:float) -> void: 
+	var data := mani_data
+	
+	gravity(data.gravity, delta)
+	jumping(data, delta)
+	
+	var move := data.ground if is_on_floor() else data.air
+	wall_jumping(data, move)
+	
+	if not is_on_floor():
+		var try = Input.get_axis("Left", "Right")
+		if try != 0: direction = try
+	
+	if is_on_wall(): direction = -direction
+	
+	if direction == 0: direction = 1
+	
+	velocity.x = move_toward(velocity.x, move.max_speed * direction, move.acceleration * delta)
+	
 func depressive_movement(delta:float) -> void: 
 	var data := depr_data
 	
-	if not is_on_floor(): velocity += get_gravity() * delta * data.gravity
+	gravity(data.gravity, delta)
+	jumping(data, delta)
 	
-	var current_move := data.ground if is_on_floor() else data.air
+	var move := data.ground if is_on_floor() else data.air
 	
-	var direction := Input.get_axis("Left", "Right")
-	
-	if direction:
-		velocity.x = move_toward(velocity.x, current_move.max_speed * direction, current_move.acceleration * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, current_move.friction * delta)
+	movement(move.max_speed, move.acceleration, move.friction, delta)
 func normal_movement(delta:float) -> void: 
 	var data := norm_data
 	
-	if not is_on_floor(): velocity += get_gravity() * delta * data.gravity
+	gravity(data.gravity, delta)
+	jumping(data, delta)
 	
-	var current_move := data.ground if is_on_floor() else data.air
+	var move := data.ground if is_on_floor() else data.air
 	
-	var direction := Input.get_axis("Left", "Right")
-	
-	if direction:
-		velocity.x = move_toward(velocity.x, current_move.max_speed * direction, current_move.acceleration * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, current_move.friction * delta)
+	movement(move.max_speed, move.acceleration, move.friction, delta)
 
 func _physics_process(delta: float) -> void:
 	

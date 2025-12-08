@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://dur5qes4h2xnh"]
+[gd_scene load_steps=12 format=4 uid="uid://dur5qes4h2xnh"]
 
 [ext_resource type="Script" uid="uid://caguh4orjl7fd" path="res://scripts/player.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://b2symtangyl7x" path="res://assets/resources/tilemap.tres" id="2_0wfyh"]
+[ext_resource type="Shader" uid="uid://c605ego6x53g6" path="res://shaders/saturation.gdshader" id="3_sugp2"]
 
 [sub_resource type="Gradient" id="Gradient_o5qli"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.32941177, 0.5568628, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0wfyh"]
 gradient = SubResource("Gradient_o5qli")
@@ -42,6 +44,17 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_sugp2")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
+shader = ExtResource("3_sugp2")
+shader_parameter/saturation = 1.0
+
+[sub_resource type="Gradient" id="Gradient_tbgi4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tefeu"]
+gradient = SubResource("Gradient_tbgi4")
+
 [node name="Main" type="Node"]
 
 [node name="Level" type="Node" parent="."]
@@ -58,8 +71,28 @@ shape = SubResource("RectangleShape2D_o5qli")
 
 [node name="Camera2D" type="Camera2D" parent="Level"]
 position = Vector2(5, -87)
-zoom = Vector2(1.2, 1.2)
+zoom = Vector2(1.4, 1.4)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Level"]
 tile_map_data = PackedByteArray("AADz////AAABAAEAAADz/wAAAAAAAAEAAADz/wEAAAAAAAAAAAD0////AAABAAEAAAD0/wAAAAAAAAAAAAD0/wEAAAAAAAAAAAD1////AAABAAAAAAD1/wAAAAABAAAAAAD1/wEAAAABAAAAAAD2////AAAAAAEAAAD2/wAAAAABAAAAAAD2/wEAAAABAAAAAAD3////AAAAAAEAAAD3/wAAAAABAAEAAAD3/wEAAAAAAAEAAAD4////AAAAAAEAAAD4/wAAAAABAAEAAAD4/wEAAAABAAAAAAD5////AAABAAEAAAD5/wAAAAABAAEAAAD5/wEAAAABAAAAAAD6////AAAAAAAAAAD6/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD7////AAAAAAEAAAD7/wAAAAAAAAEAAAD7/wEAAAABAAEAAAD8////AAABAAAAAAD8/wAAAAABAAEAAAD8/wEAAAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAABAAAAAAD9/wEAAAABAAEAAAD+////AAAAAAEAAAD+/wAAAAABAAEAAAD+/wEAAAAAAAEAAAD/////AAABAAAAAAD//wAAAAABAAAAAAD//wEAAAABAAAAAAAAAP//AAAAAAEAAAAAAAAAAAAAAAEAAAAAAAEAAAABAAEAAAABAP//AAABAAAAAAABAAAAAAAAAAEAAAABAAEAAAABAAAAAAACAP//AAABAAEAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAADAP//AAABAAAAAAADAAAAAAABAAEAAAADAAEAAAABAAAAAAAEAP//AAABAAEAAAAEAAAAAAABAAEAAAAEAAEAAAABAAEAAAAFAP//AAABAAEAAAAFAAAAAAABAAAAAAAFAAEAAAABAAAAAAAGAP//AAABAAEAAAAGAAAAAAABAAAAAAAGAAEAAAABAAEAAAAHAP//AAABAAEAAAAHAAAAAAABAAAAAAAHAAEAAAABAAAAAAAIAP//AAABAAEAAAAIAAAAAAAAAAEAAAAIAAEAAAAAAAAAAAAJAP//AAABAAEAAAAJAAAAAAAAAAEAAAAJAAEAAAAAAAEAAAAFAPz/AAAAAAAAAAAFAP3/AAABAAEAAAAFAP7/AAAAAAEAAAAHAPv/AAABAAEAAAAHAPz/AAAAAAEAAAAHAP3/AAAAAAEAAAAHAP7/AAAAAAAAAAAIAPv/AAAAAAAAAAAIAPz/AAABAAEAAAAIAP3/AAABAAEAAAAIAP7/AAABAAAAAAAJAPv/AAAAAAEAAAAJAPz/AAABAAEAAAAJAP3/AAABAAAAAAAJAP7/AAAAAAAAAAAKAPv/AAAAAAEAAAAKAPz/AAABAAAAAAAKAP3/AAABAAEAAAAKAP7/AAABAAAAAAAKAP//AAABAAAAAAAKAAAAAAABAAAAAADw//v/AAAAAAEAAADw//z/AAAAAAAAAADw//3/AAAAAAEAAADw//7/AAAAAAAAAADw////AAAAAAEAAADw/wAAAAAAAAAAAADw/wEAAAAAAAEAAADx//v/AAAAAAEAAADx//z/AAABAAAAAADx//3/AAABAAAAAADx//7/AAAAAAEAAADx////AAAAAAEAAADx/wAAAAABAAAAAADx/wEAAAABAAAAAADy//v/AAABAAAAAADy//z/AAABAAAAAADy//3/AAAAAAAAAADy//7/AAAAAAAAAADy////AAABAAEAAADy/wAAAAABAAEAAADy/wEAAAAAAAEAAADz//v/AAABAAAAAADz//z/AAABAAAAAADz//3/AAABAAEAAADz//7/AAABAAAAAAD0//v/AAAAAAAAAAD0//z/AAAAAAAAAAD0//3/AAABAAAAAAD0//7/AAAAAAEAAAD1//v/AAAAAAEAAAD1//z/AAABAAEAAAD1//3/AAABAAEAAAD1//7/AAAAAAEAAAABAP7/AAAAAAAAAAADAP3/AAABAAEAAAADAP7/AAABAAEAAAAJAPb/AAAAAAAAAAAJAPf/AAAAAAEAAAAJAPj/AAAAAAEAAAAJAPn/AAAAAAAAAAAJAPr/AAAAAAEAAAAKAPb/AAAAAAEAAAAKAPf/AAABAAAAAAAKAPj/AAABAAEAAAAKAPn/AAAAAAEAAAAKAPr/AAAAAAEAAAA=")
 tile_set = SubResource("TileSet_jyhfs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+material = SubResource("ShaderMaterial_jyhfs")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_tefeu")
