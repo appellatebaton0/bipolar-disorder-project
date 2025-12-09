@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody2D
 
+func _init() -> void: Global.player = self
+
 # Stores data for horizontal movement
 class move_data:
 	var max_speed := 30.0
@@ -48,8 +50,7 @@ var mani_data := control_data.new(
 		125.0 # Friction
 	),
 	300.0, # Jump Velocity
-	0.8 # Gravity
-)
+	0.8) # Gravity
 var depr_data := control_data.new(
 	move_data.new( ## Ground Movement
 		60.0, # Max Speed
@@ -62,8 +63,7 @@ var depr_data := control_data.new(
 		300.0 # Friction
 	),
 	260.0, # Jump Velocity
-	1.0 # Gravity
-)
+	1.0) # Gravity
 var norm_data := control_data.new(
 	move_data.new( ## Ground Movement
 		100.0, # Max Speed
@@ -76,8 +76,7 @@ var norm_data := control_data.new(
 		300.0 # Friction
 	),
 	275.0, # Jump Velocity
-	0.9 # Gravity
-)
+	0.9) # Gravity
 
 func gravity(amnt:float, delta:float) -> void: if not is_on_floor(): velocity += get_gravity() * delta * amnt
 func jumping(data:control_data, delta:float) -> void:
@@ -97,15 +96,16 @@ func jumping(data:control_data, delta:float) -> void:
 
 var wall_coyote := 0.0
 var wall_normal:float
-func wall_jumping(data:control_data, move:move_data): 
+func wall_jumping(data:control_data, move:move_data, delta:float): 
 	
+	wall_coyote = move_toward(wall_coyote, 0, delta)
 	if is_on_wall_only(): 
 		wall_coyote = 0.1
 		wall_normal = get_wall_normal().x
 	
 	if wall_coyote and jump_buffer: # WALL JUMPING
-		velocity.y -= data.jump_velocity * 1.2
-		velocity.x += move.max_speed * wall_normal * 1.5
+		velocity.y -= data.jump_velocity * 1
+		velocity.x = move.max_speed * wall_normal * 1.5
 		
 		wall_coyote = 0.0
 		jump_buffer = 0.0
@@ -127,7 +127,7 @@ func manic_movement(delta:float) -> void:
 	jumping(data, delta)
 	
 	var move := data.ground if is_on_floor() else data.air
-	wall_jumping(data, move)
+	wall_jumping(data, move, delta)
 	
 	if not is_on_floor():
 		var try = Input.get_axis("Left", "Right")
@@ -138,7 +138,6 @@ func manic_movement(delta:float) -> void:
 	if direction == 0: direction = 1
 	
 	velocity.x = move_toward(velocity.x, move.max_speed * direction, move.acceleration * delta)
-	
 func depressive_movement(delta:float) -> void: 
 	var data := depr_data
 	
@@ -161,9 +160,9 @@ func normal_movement(delta:float) -> void:
 func _physics_process(delta: float) -> void:
 	
 	## Attach the relevant movement.
-	match Global.player_state:
-		Global.STATES.MANIC:      manic_movement(delta)
-		Global.STATES.DEPRESSIVE: depressive_movement(delta)
-		Global.STATES.NORMAL:     normal_movement(delta)
+	match PlayerState.player_state:
+		PlayerState.STATES.MANIC:      manic_movement(delta)
+		PlayerState.STATES.DEPRESSIVE: depressive_movement(delta)
+		PlayerState.STATES.NORMAL:     normal_movement(delta)
 	
 	move_and_slide()

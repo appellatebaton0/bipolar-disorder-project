@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bur0souj0pgbn"]
+
+[ext_resource type="Script" uid="uid://rw5uei7w0805" path="res://scripts/level_button.gd" id="1_i0sit"]
+
+[node name="LevelButton" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_i0sit")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer"]
+layout_mode = 2
+focus_mode = 0
+
+[connection signal="pressed" from="MarginContainer/Button" to="." method="_on_pressed"]
