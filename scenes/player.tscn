@@ -7,11 +7,11 @@ colors = PackedColorArray(1, 0, 0, 1, 1, 0.32941177, 0.5568628, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_0wfyh"]
 gradient = SubResource("Gradient_o5qli")
-width = 32
-height = 32
+width = 16
+height = 16
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5qli"]
-size = Vector2(32, 32)
+size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2

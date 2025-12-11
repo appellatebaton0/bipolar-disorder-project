@@ -6,17 +6,17 @@
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_sf021"]
 gradient = SubResource("Gradient_24wwx")
-width = 32
-height = 4
+width = 16
+height = 3
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_24wwx"]
-size = Vector2(32, 4)
-
-[sub_resource type="Animation" id="Animation_24wwx"]
-resource_name = "on"
+size = Vector2(16, 3)
 
 [sub_resource type="Animation" id="Animation_sf021"]
 resource_name = "off"
+
+[sub_resource type="Animation" id="Animation_24wwx"]
+resource_name = "on"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jbxim"]
 _data = {

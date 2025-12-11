@@ -49,34 +49,34 @@ var mani_data := control_data.new(
 		125.0, # Acceleration
 		125.0 # Friction
 	),
-	300.0, # Jump Velocity
-	0.8) # Gravity
+	200.0, # Jump Velocity
+	0.4) # Gravity
 var depr_data := control_data.new(
 	move_data.new( ## Ground Movement
-		60.0, # Max Speed
+		50.0, # Max Speed
 		500.0, # Acceleration
 		400.0 # Friction
 	),
 	move_data.new( ## Air Movemnt
-		50.0, # Max Speed
+		40.0, # Max Speed
 		300.0, # Acceleration
 		300.0 # Friction
 	),
-	260.0, # Jump Velocity
-	1.0) # Gravity
+	165.0, # Jump Velocity
+	0.7) # Gravity
 var norm_data := control_data.new(
 	move_data.new( ## Ground Movement
-		100.0, # Max Speed
-		400.0, # Acceleration
-		500.0 # Friction
+		70.0, # Max Speed
+		300.0, # Acceleration
+		400.0 # Friction
 	),
 	move_data.new( ## Air Movemnt
-		90.0, # Max Speed
-		300.0, # Acceleration
+		60.0, # Max Speed
+		200.0, # Acceleration
 		300.0 # Friction
 	),
-	275.0, # Jump Velocity
-	0.9) # Gravity
+	175.0, # Jump Velocity
+	0.7) # Gravity
 
 func gravity(amnt:float, delta:float) -> void: if not is_on_floor(): velocity += get_gravity() * delta * amnt
 func jumping(data:control_data, delta:float) -> void:

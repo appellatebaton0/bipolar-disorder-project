@@ -6,11 +6,11 @@
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_w3gav"]
 gradient = SubResource("Gradient_sx1j4")
-width = 32
-height = 32
+width = 16
+height = 16
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvyg3"]
-size = Vector2(32, 32)
+size = Vector2(16, 16)
 
 [node name="Goal" type="Area2D"]
 collision_layer = 8
