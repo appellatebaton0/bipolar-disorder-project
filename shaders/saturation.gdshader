@@ -3,11 +3,13 @@ shader_type canvas_item;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 uniform float saturation = 1.0;
+uniform float brightness = 1.0;
 
 void fragment() {
         vec3 c = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
 	
 		c.rgb = mix(vec3(dot(vec3(1.0), c.rgb)/3.0), c.rgb, saturation);
+		c.rgb = mix(vec3(0.0), c.rgb, brightness);
 
         COLOR.rgb = c;
 }

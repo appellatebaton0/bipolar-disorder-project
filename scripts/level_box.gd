@@ -4,10 +4,9 @@ var button_scene := load("res://scenes/level_button.tscn")
 
 func _ready() -> void:
 	for level in LevelManager.levels:
-		print("made new")
-		var new = button_scene.instantiate()
+		var new:LevelButton = button_scene.instantiate()
 		
-		new.level = level
+		new.level_id = level.id
 		
 		add_child(new)
 	

@@ -1,12 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://bur0souj0pgbn"]
+[gd_scene load_steps=7 format=3 uid="uid://bur0souj0pgbn"]
 
 [ext_resource type="Script" uid="uid://rw5uei7w0805" path="res://scripts/level_button.gd" id="1_i0sit"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i0sit"]
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0.045599997, 0.13308005, 0.24, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8246"]
+bg_color = Color(0.21839997, 0.46175998, 0.78, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrusj"]
+bg_color = Color(0.12389998, 0.32587665, 0.59, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6g3el"]
+bg_color = Color(0.3344, 0.5708267, 0.88, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ium1h"]
+bg_color = Color(0.1312, 0.25201336, 0.41, 1)
+
 [node name="LevelButton" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 123.0
+offset_bottom = 121.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_i0sit")
 script = ExtResource("1_i0sit")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -15,5 +35,11 @@ layout_mode = 2
 [node name="Button" type="Button" parent="MarginContainer"]
 layout_mode = 2
 focus_mode = 0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_o8246")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_hrusj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6g3el")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ium1h")
+text = "1"
 
 [connection signal="pressed" from="MarginContainer/Button" to="." method="_on_pressed"]

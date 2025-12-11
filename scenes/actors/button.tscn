@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddr7l7sb38l4w"]
+
+[ext_resource type="Script" uid="uid://810af7yin255" path="res://scripts/actors/button.gd" id="1_24wwx"]
+
+[sub_resource type="Gradient" id="Gradient_24wwx"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sf021"]
+gradient = SubResource("Gradient_24wwx")
+width = 32
+height = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24wwx"]
+size = Vector2(32, 4)
+
+[sub_resource type="Animation" id="Animation_24wwx"]
+resource_name = "on"
+
+[sub_resource type="Animation" id="Animation_sf021"]
+resource_name = "off"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jbxim"]
+_data = {
+&"off": SubResource("Animation_sf021"),
+&"on": SubResource("Animation_24wwx")
+}
+
+[node name="Button" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_24wwx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = SubResource("GradientTexture2D_sf021")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_24wwx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jbxim")
+}

@@ -165,4 +165,6 @@ func _physics_process(delta: float) -> void:
 		PlayerState.STATES.DEPRESSIVE: depressive_movement(delta)
 		PlayerState.STATES.NORMAL:     normal_movement(delta)
 	
+	
+	
 	move_and_slide()

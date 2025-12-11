@@ -1,9 +1,6 @@
-[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://dhtxea8edjc63"]
+[gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://dhtxea8edjc63"]
 
-[sub_resource type="Gradient" id="Gradient_f5axy"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_c8a05"]
-gradient = SubResource("Gradient_f5axy")
+[ext_resource type="Texture2D" uid="uid://bcnadm6sf1l40" path="res://assets/textures/intrusion.png" id="1_0218s"]
 
 [resource]
-diffuse_texture = SubResource("GradientTexture2D_c8a05")
+diffuse_texture = ExtResource("1_0218s")
