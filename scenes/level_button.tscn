@@ -7,19 +7,19 @@ border_width_left = 7
 border_width_top = 7
 border_width_right = 7
 border_width_bottom = 7
-border_color = Color(0.045599997, 0.13308005, 0.24, 1)
+border_color = Color(0.16000001, 0.2, 0.166, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8246"]
-bg_color = Color(0.21839997, 0.46175998, 0.78, 1)
+bg_color = Color(0.33333334, 0.41568628, 0.34509805, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hrusj"]
-bg_color = Color(0.12389998, 0.32587665, 0.59, 1)
+bg_color = Color(0.256, 0.32, 0.2656, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6g3el"]
-bg_color = Color(0.3344, 0.5708267, 0.88, 1)
+bg_color = Color(0.408, 0.51, 0.4233, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ium1h"]
-bg_color = Color(0.1312, 0.25201336, 0.41, 1)
+bg_color = Color(0.17814073, 0.22268891, 0.1825887, 1)
 
 [node name="LevelButton" type="PanelContainer"]
 offset_right = 123.0

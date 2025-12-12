@@ -17,7 +17,7 @@ func get_next_position(_delta) -> Vector2:
 	var b = target.global_position + (0.3 * target.velocity)
 	
 	var x = lerp(a.x, b.x, 0.1)
-	var y = a.y #lerp(global_position.y, target.global_position.y, lerp_amount)
+	var y = lerp(a.y, b.y, 0.03)
 	
 	#if abs(a.x - b.x) > 50.0:
 		#x = lerp(a.x, b.x, 1/50.0)

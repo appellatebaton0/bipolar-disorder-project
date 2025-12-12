@@ -22,6 +22,8 @@ func _on_pressed() -> void:
 	
 	LevelManager.current_level = LevelManager.levels[level_id]
 	
+	LevelManager.set_level_index_to(level_id)
+	
 	anim.play("levels_to_game")
 
 func _on_level_index_update(to:int):

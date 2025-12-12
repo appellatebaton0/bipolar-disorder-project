@@ -4,7 +4,7 @@ signal level_index_update(to:int)
 
 const LEVEL_PATH := "res://scenes/levels/"
 
-var level_index := 0
+var level_index:int = 0
 var current_level:LevelData
 
 @onready var levels:Array[LevelData] = get_levels()
@@ -103,3 +103,15 @@ func set_level_index_to(to:int):
 	level_index = to
 	
 	level_index_update.emit(to)
+
+
+func reset():
+	var new = current_level.scene.instantiate()
+	
+	current_level.instance.queue_free()
+	
+	Global.main.add_child(new)
+	
+	current_level.instance = new
+	
+	PlayerState.state_to(PlayerState.STATES.NORMAL)

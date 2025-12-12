@@ -1,14 +1,27 @@
-[gd_scene load_steps=23 format=3 uid="uid://dur5qes4h2xnh"]
+[gd_scene load_steps=25 format=3 uid="uid://dur5qes4h2xnh"]
 
 [ext_resource type="Script" uid="uid://bqrw7baym6dqg" path="res://scripts/main.gd" id="1_o6xl0"]
 [ext_resource type="Shader" uid="uid://c605ego6x53g6" path="res://shaders/saturation.gdshader" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://44h1jxxmbidy" path="res://scripts/saturator.gd" id="3_tefeu"]
+[ext_resource type="Texture2D" uid="uid://dqyylnecreu1b" path="res://assets/textures/ui.png" id="4_o6xl0"]
 [ext_resource type="Script" uid="uid://ddgm718ait2yq" path="res://scripts/animate_button.gd" id="4_tbgi4"]
 [ext_resource type="Script" uid="uid://bqdsqnix7dy54" path="res://scripts/level_box.gd" id="5_tefeu"]
 [ext_resource type="Script" uid="uid://jtw0k0irwqoh" path="res://scripts/animator.gd" id="7_tipki"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
+shader = ExtResource("3_sugp2")
+shader_parameter/saturation = 1.0
+shader_parameter/brightness = 1.0
+
+[sub_resource type="Gradient" id="Gradient_tbgi4"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tefeu"]
+gradient = SubResource("Gradient_tbgi4")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choun"]
-bg_color = Color(0.17429999, 0.5458632, 0.83, 1)
+bg_color = Color(0.33333334, 0.41568628, 0.34509805, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tefeu"]
 bg_color = Color(0.10880002, 0.35632002, 0.68, 1)
@@ -23,32 +36,20 @@ corner_detail = 1
 Button/styles/normal = SubResource("StyleBoxFlat_choun")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_tefeu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
-shader = ExtResource("3_sugp2")
-shader_parameter/saturation = 1.0
-shader_parameter/brightness = 1.0
-
-[sub_resource type="Gradient" id="Gradient_tbgi4"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_tefeu"]
-gradient = SubResource("Gradient_tbgi4")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6xl0"]
-bg_color = Color(0.105882354, 0.20392157, 0.3254902, 1)
-skew = Vector2(0.5, 0)
+bg_color = Color(0.33333334, 0.41568628, 0.34509805, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
-bg_color = Color(0.105882354, 0.20392157, 0.3254902, 1)
-skew = Vector2(0.9, 0)
+bg_color = Color(0.24000001, 0.3, 0.249, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
-bg_color = Color(0.105882354, 0.20392157, 0.3254902, 1)
-skew = Vector2(0.7, 0)
+bg_color = Color(0.41599998, 0.52, 0.43159997, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya4ey"]
-bg_color = Color(0.3344, 0.5708267, 0.88, 1)
+bg_color = Color(0.26400003, 0.33, 0.2739, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb6dy"]
+bg_color = Color(0.41599998, 0.52, 0.43159997, 1)
 
 [sub_resource type="Animation" id="Animation_tipki"]
 length = 0.001
@@ -177,7 +178,20 @@ _data = {
 [node name="Main" type="Node"]
 script = ExtResource("1_o6xl0")
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="Saturator" type="TextureRect" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_jyhfs")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_tefeu")
+script = ExtResource("3_tefeu")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -188,27 +202,22 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_tefeu")
 
-[node name="Saturator" type="TextureRect" parent="CanvasLayer/Control"]
-material = SubResource("ShaderMaterial_jyhfs")
+[node name="Start" type="TextureRect" parent="CanvasLayer/Control"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_tefeu")
-script = ExtResource("3_tefeu")
-
-[node name="Start" type="PanelContainer" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+texture = ExtResource("4_o6xl0")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Start"]
-layout_mode = 2
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 1122.0
+offset_bottom = 618.0
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
@@ -237,7 +246,8 @@ text = "LEVELS"
 script = ExtResource("4_tbgi4")
 animation_name = "start_to_levels"
 
-[node name="Levels" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="Levels" type="TextureRect" parent="CanvasLayer/Control"]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -246,9 +256,14 @@ offset_left = 1152.0
 offset_right = 1152.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("4_o6xl0")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Levels"]
-layout_mode = 2
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 1122.0
+offset_bottom = 618.0
 theme_override_constants/margin_left = 75
 theme_override_constants/margin_top = 75
 theme_override_constants/margin_right = 75
@@ -274,7 +289,11 @@ columns = 3
 script = ExtResource("5_tefeu")
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/Levels"]
-layout_mode = 2
+layout_mode = 0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 280.0
+offset_bottom = 160.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/margin_left = 75
@@ -287,7 +306,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 focus_mode = 0
 theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_ya4ey")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ya4ey")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eb6dy")
 text = "BACK"
 script = ExtResource("4_tbgi4")
 animation_name = "levels_to_start"

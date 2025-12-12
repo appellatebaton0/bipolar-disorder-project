@@ -15,7 +15,7 @@ class move_data:
 # Stores data for all movement
 class control_data:
 	var coyote_time := 0.1
-	var jump_buffer := 0.1
+	var jump_buffer := 0.12
 	
 	var gravity := 1.0
 	var jump_velocity := 300.0
@@ -41,12 +41,12 @@ var direction:float
 var mani_data := control_data.new(
 	move_data.new( ## Ground Movement
 		135.0, # Max Speed
-		135.0, # Acceleration
+		135.0*1.5, # Acceleration
 		135.0 # Friction
 	),
 	move_data.new( ## Air Movemnt
 		125.0, # Max Speed
-		125.0, # Acceleration
+		125*1.5, # Acceleration
 		125.0 # Friction
 	),
 	200.0, # Jump Velocity
@@ -66,17 +66,17 @@ var depr_data := control_data.new(
 	0.7) # Gravity
 var norm_data := control_data.new(
 	move_data.new( ## Ground Movement
-		70.0, # Max Speed
+		80.0, # Max Speed
 		300.0, # Acceleration
 		400.0 # Friction
 	),
 	move_data.new( ## Air Movemnt
-		60.0, # Max Speed
+		75.0, # Max Speed
 		200.0, # Acceleration
 		300.0 # Friction
 	),
-	175.0, # Jump Velocity
-	0.7) # Gravity
+	185.0, # Jump Velocity
+	0.5) # Gravity
 
 func gravity(amnt:float, delta:float) -> void: if not is_on_floor(): velocity += get_gravity() * delta * amnt
 func jumping(data:control_data, delta:float) -> void:
@@ -100,11 +100,11 @@ func wall_jumping(data:control_data, move:move_data, delta:float):
 	
 	wall_coyote = move_toward(wall_coyote, 0, delta)
 	if is_on_wall_only(): 
-		wall_coyote = 0.1
+		wall_coyote = 0.2
 		wall_normal = get_wall_normal().x
 	
 	if wall_coyote and jump_buffer: # WALL JUMPING
-		velocity.y -= data.jump_velocity * 1
+		velocity.y = -data.jump_velocity
 		velocity.x = move.max_speed * wall_normal * 1.5
 		
 		wall_coyote = 0.0
@@ -127,7 +127,7 @@ func manic_movement(delta:float) -> void:
 	jumping(data, delta)
 	
 	var move := data.ground if is_on_floor() else data.air
-	wall_jumping(data, move, delta)
+	if LevelManager.current_level.id > 6: wall_jumping(data, move, delta)
 	
 	if not is_on_floor():
 		var try = Input.get_axis("Left", "Right")
