@@ -1,13 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cespcoq5hpp0t"]
+[gd_scene load_steps=4 format=3 uid="uid://cespcoq5hpp0t"]
 
 [ext_resource type="Script" uid="uid://b2q526wjcvbev" path="res://scripts/goal.gd" id="1_jbojv"]
-
-[sub_resource type="Gradient" id="Gradient_sx1j4"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_w3gav"]
-gradient = SubResource("Gradient_sx1j4")
-width = 16
-height = 16
+[ext_resource type="Texture2D" uid="uid://0p66dk3uhows" path="res://assets/textures/goal.png" id="2_sx1j4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jvyg3"]
 size = Vector2(16, 16)
@@ -18,7 +12,8 @@ collision_mask = 2
 script = ExtResource("1_jbojv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_w3gav")
+texture_filter = 1
+texture = ExtResource("2_sx1j4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jvyg3")

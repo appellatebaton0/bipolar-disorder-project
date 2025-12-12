@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody2D
 
+@onready var anim := $AnimatedSprite2D
+
 func _init() -> void: Global.player = self
 
 # Stores data for horizontal movement
@@ -161,10 +163,17 @@ func _physics_process(delta: float) -> void:
 	
 	## Attach the relevant movement.
 	match PlayerState.player_state:
-		PlayerState.STATES.MANIC:      manic_movement(delta)
-		PlayerState.STATES.DEPRESSIVE: depressive_movement(delta)
-		PlayerState.STATES.NORMAL:     normal_movement(delta)
+		PlayerState.STATES.MANIC:      
+			manic_movement(delta)
+			anim.play("mani")
+		PlayerState.STATES.DEPRESSIVE: 
+			depressive_movement(delta)
+			anim.play("depr")
+		PlayerState.STATES.NORMAL:     
+			normal_movement(delta)
+			anim.play("norm")
 	
-	
+	if direction:
+		anim.flip_h = direction < 0
 	
 	move_and_slide()
